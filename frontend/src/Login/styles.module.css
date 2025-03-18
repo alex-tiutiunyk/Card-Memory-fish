@@ -1,0 +1,72 @@
+:root {
+  --index: calc(1vw + 1vh);
+}
+
+.wrapper {
+  height: 100vh;
+  background: url('images/bg-layer-1.jpg') no-repeat 0 100%;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  position: relative;
+}
+
+.coral_1 {
+  width: calc(var(--index) * 22);
+  height: calc(var(--index) * 22);
+  position: absolute;
+  left: -10px;
+  bottom: -10px;
+  background-image: url('../images/coral-1.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translateZ(100px) scale(1.15);
+}
+
+.coral_2 {
+  width: calc(var(--index) * 13);
+  height: calc(var(--index) * 21.7);
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/coral-2.png');
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translateZ(100px);
+}
+
+.coral_3 {
+  width: calc(var(--index) * 15);
+  height: calc(var(--index) * 15);
+  position: absolute;
+  bottom: -60px;
+  left: 35vw;
+  background-image: url('../images/coral-3.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translateZ(10px);
+}
+
+.form {
+  width: 280px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgb(255, 255, 255, 0.7);
+}
+
+.title {
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 5px;
+  margin: 0 0 15px;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
