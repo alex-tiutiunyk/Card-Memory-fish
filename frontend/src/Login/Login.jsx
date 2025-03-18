@@ -20,6 +20,34 @@ const Login = ({ onLogin }) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    let event = '';
+    const isTouchSupported =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+    isTouchSupported ? (event = 'touchmove') : (event = 'mousemove');
+
+    const onMove = (e) => {
+      let clientEvent = e;
+
+      if (isTouchSupported) {
+        const touch = e.touches[0];
+        clientEvent = touch;
+      }
+
+      Object.assign(document.documentElement, {
+        style: `
+        --move-x: ${((clientEvent.clientX - window.innerWidth / 2) * -0.007).toFixed(1)}deg;
+        --move-y: ${((clientEvent.clientY - window.innerHeight / 2) * 0.015).toFixed(1)}deg;
+      `,
+      });
+    };
+
+    document.addEventListener(event, onMove);
+
+    return () => document.removeEventListener(event, onMove);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
