@@ -1,0 +1,55 @@
+.container {
+  height: 100vh;
+  position: relative;
+  transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.layer {
+  position: absolute;
+  inset: -6vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 100%;
+  transform: translateZ(-55px) scale(1.08);
+  background: url('images/bg-layer-1.jpg') no-repeat 0 100%;
+  background-size: cover;
+}
+
+.coral_1 {
+  width: calc(var(--index) * 22);
+  height: calc(var(--index) * 22);
+  position: absolute;
+  left: -10px;
+  bottom: -10px;
+  background-image: url('images/coral-1.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translateZ(100px) scale(1.15);
+}
+
+.coral_2 {
+  width: calc(var(--index) * 13);
+  height: calc(var(--index) * 21.7);
+  right: 0;
+  bottom: 0;
+  background-image: url('images/coral-2.png');
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translateZ(100px);
+}
+
+.coral_3 {
+  width: calc(var(--index) * 15);
+  height: calc(var(--index) * 15);
+  position: absolute;
+  bottom: -60px;
+  left: 35vw;
+  background-image: url('images/coral-3.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translateZ(50px);
+}
