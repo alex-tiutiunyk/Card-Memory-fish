@@ -12,3 +12,42 @@ body {
   background-size: 100%;
   opacity: 0.6;
 }
+
+.fish {
+  width: calc(var(--index) * 7);
+  height: calc(var(--index) * 6);
+  position: absolute;
+  right: 100%;
+  top: 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: transform 0.3s linear;
+}
+
+.fish-1 {
+  background-image: url('../public/images/fish-1.png');
+}
+
+.fish-2 {
+  background-image: url('../public/images/fish-2.png');
+}
+
+.fish-3 {
+  width: calc(var(--index) * 4.5);
+  background-image: url('../public/images/fish-3.png');
+}
+
+.fish-4 {
+  width: calc(var(--index) * 6.5);
+  background-image: url('../public/images/fish-4.png');
+}
+
+.fish-5 {
+  width: calc(var(--index) * 8.5);
+  background-image: url('../public/images/fish-5.png');
+}
+
+.fish-6 {
+  width: calc(var(--index) * 8.5);
+  background-image: url('../public/images/fish-6.png');
+}

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from './styles.module.css';
 import { generateBubbles } from '../utils/bubbleGenerator';
+import { generateFish } from '../utils/fishGenerator';
+import styles from './styles.module.css';
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -11,6 +12,11 @@ const Login = ({ onLogin }) => {
 
   useEffect(() => {
     const interval = setInterval(generateBubbles, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(generateFish, 1500);
     return () => clearInterval(interval);
   }, []);
 
