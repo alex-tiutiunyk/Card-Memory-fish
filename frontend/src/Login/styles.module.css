@@ -12,6 +12,7 @@
   overflow: hidden;
   perspective: 1000px;
   position: relative;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .coral_1 {
@@ -52,21 +53,63 @@
 
 .form {
   width: 280px;
-  padding: 25px;
+  padding: 20px 25px 25px;
   border-radius: 20px;
   background: rgb(255, 255, 255, 0.7);
+  position: relative;
+  box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.3);
 }
 
 .title {
   margin: 0 0 20px;
   text-align: center;
+  font: 24px/1.2 Orbitron, Arial, Helvetica, sans-serif;
+  letter-spacing: 4px;
+  color: #077888;
+  text-transform: uppercase;
 }
 
 .input {
   width: 100%;
-  padding: 5px;
+  padding: 8px 10px;
   margin: 0 0 15px;
   border: none;
   box-sizing: border-box;
   border-radius: 5px;
+  background-color: #077888;
+  color: #fff;
+  transition: background-color 0.3s linear;
+  font: 14px/20px Arial, Helvetica, sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  background-color: #035763;
+}
+
+.footer {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  flex-grow: 1;
+  background-color: #e27e0d;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font: 14px/36px 'Press Start 2P', Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  transition: background-color 0.3s linear;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #c66e0a;
+  outline: none;
+}
+
+.message:empty {
+  display: none;
 }

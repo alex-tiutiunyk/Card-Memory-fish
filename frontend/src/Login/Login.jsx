@@ -50,13 +50,15 @@ const Login = ({ onLogin }) => {
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         />
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button type='submit'>Login</button>
-          <button type='button' onClick={handleRegisterRedirect}>
+        <footer className={styles.footer}>
+          <button type='submit' className={styles.btn}>
+            Login
+          </button>
+          <button type='button' onClick={handleRegisterRedirect} className={styles.btn}>
             Register
           </button>
-        </div>
-        <p style={{ color: 'red' }}>{error}</p>
+        </footer>
+        <p className={styles.message}>{error}</p>
       </form>
     </div>
   );
