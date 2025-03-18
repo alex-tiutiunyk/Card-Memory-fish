@@ -36,10 +36,10 @@ export function generateFish() {
     newFish.animate(
       [
         {
-          transform: `translate(110vw, ${yStart}vh) translateZ(50px) scale(${size}) rotateY(180deg)`,
+          transform: `translate(110vw, ${yStart}vh) translateZ(${z}px) scale(${size}) rotateY(180deg)`,
         },
         {
-          transform: `translate(-10vw, ${yFinish}vh) translateZ(50px) scale(${
+          transform: `translate(-10vw, ${yFinish}vh) translateZ(${z}px) scale(${
             size + 0.3
           }) rotateY(180deg)`,
         },
