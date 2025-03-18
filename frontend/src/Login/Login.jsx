@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './styles.module.css';
+import { generateBubbles } from '../utils/bubbleGenerator';
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate(); // For navigation
+
+  useEffect(() => {
+    const interval = setInterval(generateBubbles, 500);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,9 +37,12 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.coral_1}></div>
-      <div className={styles.coral_2}></div>
-      <div className={styles.coral_3}></div>
+      <div className={`aquarium ${styles.container}`}>
+        <div className={styles.layer}></div>
+        <div className={styles.coral_1}></div>
+        <div className={styles.coral_2}></div>
+        <div className={styles.coral_3}></div>
+      </div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.title}>Login</h2>
         <input

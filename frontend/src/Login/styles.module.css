@@ -4,15 +4,29 @@
 
 .wrapper {
   height: 100vh;
-  background: url('images/bg-layer-1.jpg') no-repeat 0 100%;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   perspective: 1000px;
-  position: relative;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  height: 100vh;
+  position: relative;
+  transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.layer {
+  position: absolute;
+  inset: -6vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 100%;
+  transform: translateZ(-55px) scale(1.08);
+  background: url('images/bg-layer-1.jpg') no-repeat 0 100%;
+  background-size: cover;
 }
 
 .coral_1 {
@@ -21,7 +35,7 @@
   position: absolute;
   left: -10px;
   bottom: -10px;
-  background-image: url('../images/coral-1.png');
+  background-image: url('images/coral-1.png');
   background-repeat: no-repeat;
   background-size: contain;
   transform: translateZ(100px) scale(1.15);
@@ -32,7 +46,7 @@
   height: calc(var(--index) * 21.7);
   right: 0;
   bottom: 0;
-  background-image: url('../images/coral-2.png');
+  background-image: url('images/coral-2.png');
   position: absolute;
   background-repeat: no-repeat;
   background-size: contain;
@@ -45,10 +59,10 @@
   position: absolute;
   bottom: -60px;
   left: 35vw;
-  background-image: url('../images/coral-3.png');
+  background-image: url('images/coral-3.png');
   background-repeat: no-repeat;
   background-size: contain;
-  transform: translateZ(10px);
+  transform: translateZ(50px);
 }
 
 .form {
@@ -56,8 +70,12 @@
   padding: 20px 25px 25px;
   border-radius: 20px;
   background: rgb(255, 255, 255, 0.7);
-  position: relative;
   box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .title {
