@@ -1,6 +1,5 @@
 import { X } from 'lucide-react';
 import Modal from 'react-modal';
-import styles from './Modals.module.css';
 
 const InstructionsModal = ({ InstuctionsIsOpen, InstructionsCloseModal }) => {
   const modalStyles = {
