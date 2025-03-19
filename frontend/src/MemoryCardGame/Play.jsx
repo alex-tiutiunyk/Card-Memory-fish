@@ -8,6 +8,7 @@ import buttonHoverSound from '../assets/audio/button-hover.mp3';
 import buttonClickSound from '../assets/audio/button-click.mp3';
 import { X } from 'lucide-react';
 import './Play.css';
+import InstructionsModal from '../components/Modals/InstructionsModal';
 
 const modalStyles = {
   overlay: {
@@ -67,6 +68,7 @@ const Play = () => {
   const navigate = useNavigate();
   const [SettingsmodalIsOpen, setModalSettingIsOpen] = useState(false);
   const [PlaymodalIsOpen, setModalPlayIsOpen] = useState(false);
+  const [InstuctionsIsOpen, setInstuctionsIsOpen] = useState(false);
   const [difficulty, setDifficulty] = useState(null);
   const [isCalmMode, setIsCalmMode] = useState(false);
 
@@ -172,6 +174,17 @@ const Play = () => {
     setModalPlayIsOpen(false);
   };
 
+  // Instructions Modal
+  const InstructionsOpenModal = () => {
+    playClickSound();
+    setInstuctionsIsOpen(true);
+  };
+
+  const InstructionsCloseModal = () => {
+    playClickSound();
+    setInstuctionsIsOpen(false);
+  };
+
   const handleDifficultySelect = (level) => {
     setDifficulty(level);
   };
@@ -227,10 +240,7 @@ const Play = () => {
         </button>
         <button
           className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
-          onClick={() => {
-            playClickSound();
-            alert('Instructions coming soon!');
-          }}
+          onClick={InstructionsOpenModal}
           onMouseEnter={playHoverSound}
         >
           Instructions
@@ -383,6 +393,10 @@ const Play = () => {
           </button>
         </div>
       </Modal>
+      <InstructionsModal
+        InstuctionsIsOpen={InstuctionsIsOpen}
+        InstructionsCloseModal={InstructionsCloseModal}
+      />
     </div>
   );
 };

@@ -11,36 +11,43 @@ body {
   overflow: hidden; /* Prevents scrolling, ensures the background fits perfectly */
 }
 
-/* Modal styling */
-.ReactModal__Overlay {
-  opacity: 0;
-  transition: opacity 200ms ease-in-out;
-}
-
-.ReactModal__Overlay--after-open {
-  opacity: 1;
-}
-
-.ReactModal__Overlay--before-close {
-  opacity: 0;
-}
-
-.ReactModal__Content {
-  position: absolute;
-  top: 50%; /* Centers the modal */
-  left: 50%;
+.modal {
+  color: #fff;
   transform: translate(-50%, -50%);
-  background: rgba(30, 30, 46, 0.95); /* Default background */
-  border: 2px solid #4a4e69; /* Default border color */
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
-  width: 400px;
-  padding: 20px;
-  z-index: 1000; /* Ensures it appears above everything */
-  color: #fff; /* Default text color */
+  max-width: 600px;
+  font: 16px/1.4 'Orbitron', sans-serif;
 }
 
-/* Calm Mode button styling */
+.modal p {
+  margin: 0 0 20px;
+}
+
+.modal ul {
+  padding: 0;
+  margin: 0 0 20px;
+  list-style: none;
+}
+
+.modal p:last-child,
+.modal ul:last-child {
+  margin-bottom: 0;
+}
+
+.modal li {
+  padding-left: 20px;
+  position: relative;
+}
+
+.modal li:before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 9px;
+  left: 0;
+  border-radius: 5px;
+  background-color: #fff;
+}
 
 /* Volume control */
 .volume-control {
@@ -86,6 +93,7 @@ body {
   text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffaa00; /* Glowing effect */
   margin-bottom: 25px;
   font-size: 24px;
+  text-align: center;
 }
 
 /* Specific styling for Calm Mode h2 text */
