@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const mongoose = require('mongoose');
 
 exports.saveGameData = async (req, res) => {
   const userID = req.params.id;
@@ -38,5 +39,26 @@ exports.saveGameData = async (req, res) => {
   } catch (error) {
     console.error('Error saving game data:', error);
     res.status(500).json({ message: 'Error saving game data', error });
+  }
+};
+
+exports.fetchGameData = async (req, res) => {
+  const userID = req.params.id;
+
+  if (!mongoose.isValidObjectId(userID)) {
+    return res.status(400).json({ error: 'Invalid user ID' });
+  }
+
+  const user = await User.findById(userID);
+
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.json(user);
+  try {
+  } catch (error) {
+    console.error('Error fetch user data:', error);
+    res.status(500).json({ message: 'Error fetch user data', error });
   }
 };
