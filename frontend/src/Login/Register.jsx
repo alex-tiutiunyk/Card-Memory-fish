@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import Aquarium from '../components/Aquarium/Aquarium';
+import styles from './styles.module.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -14,26 +16,34 @@ const Register = () => {
       setMessage(error.response?.data.message || 'Error registering');
     }
   };
-  
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={formData.username}
-        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-      />
-      <button type="submit">Register</button>
-      <p>{message}</p>
-    </form>
+    <div className={styles.wrapper}>
+      <Aquarium />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.title}>Register</h2>
+        <input
+          className={styles.input}
+          type='text'
+          placeholder='Username'
+          value={formData.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+        />
+        <input
+          className={styles.input}
+          type='password'
+          placeholder='Password'
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        />
+        <footer className={styles.footer}>
+          <button type='submit' className={styles.btn}>
+            Register
+          </button>
+        </footer>
+        <p className={styles.message}>{message}</p>
+      </form>
+    </div>
   );
 };
 

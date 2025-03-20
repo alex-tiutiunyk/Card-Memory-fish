@@ -1,0 +1,104 @@
+.wrapper {
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1000px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form {
+  width: 380px;
+  padding: 20px 25px 25px;
+  border-radius: 20px;
+  background: rgb(255, 255, 255, 0.7);
+  box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.title {
+  margin: 0 0 20px;
+  text-align: center;
+  font: 40px/1.2 Orbitron, Arial, Helvetica, sans-serif;
+  letter-spacing: 4px;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 0 0 25px;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: var(--blue);
+  color: #fff;
+  transition: background-color 0.3s linear;
+  font: 18px/20px Arial, Helvetica, sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  background-color: var(--blue-dark);
+  box-shadow: 0 0 15px var(--blue-dark);
+}
+
+.footer {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  flex-grow: 1;
+  background-color: var(--orange);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font: 16px/44px 'Press Start 2P', Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--orange-dark);
+  outline: none;
+  box-shadow: 0 0 15px var(--orange);
+}
+
+.message:empty {
+  display: none;
+}
+
+.message {
+  color: var(--red);
+  text-align: center;
+  margin: 20px 0 0;
+}
+
+@media (max-width: 767px) {
+  .form {
+    width: 260px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .input {
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .btn {
+    line-height: 36px;
+    font-size: 14px;
+  }
+}
