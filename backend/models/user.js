@@ -4,8 +4,21 @@ const resultSchema = require('./results');
 
 const userSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    email: {
+      type: String,
+      required: [true, 'Email is required!'],
+      trim: true,
+      unique: [true, 'Email must be unique!'],
+      minLength: [5, 'Email must have 5 characters!'],
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: [true, 'Password mast be provided!'],
+      trim: true,
+      select: false,
+    },
+    username: { type: String },
     results: [resultSchema],
   },
   {
