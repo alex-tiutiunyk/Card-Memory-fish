@@ -17,7 +17,7 @@ const InstructionsModal = ({ InstuctionsIsOpen, InstructionsCloseModal }) => {
       borderRadius: '20px',
       padding: '40px',
       height: 'auto',
-      width: '90%',
+      width: '95%',
       position: 'absolute',
       top: '50%',
       left: '50%',
@@ -26,7 +26,12 @@ const InstructionsModal = ({ InstuctionsIsOpen, InstructionsCloseModal }) => {
     },
   };
   return (
-    <Modal isOpen={InstuctionsIsOpen} style={modalStyles} className='modal'>
+    <Modal
+      isOpen={InstuctionsIsOpen}
+      style={modalStyles}
+      className='modal'
+      onRequestClose={InstructionsCloseModal}
+    >
       <button
         onClick={InstructionsCloseModal}
         style={{

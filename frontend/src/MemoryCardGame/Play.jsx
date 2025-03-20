@@ -9,6 +9,7 @@ import buttonClickSound from '../assets/audio/button-click.mp3';
 import { X } from 'lucide-react';
 import './Play.css';
 import InstructionsModal from '../components/Modals/InstructionsModal';
+import ResultsModal from '../components/Modals/ResultsModal';
 
 const modalStyles = {
   overlay: {
@@ -69,6 +70,7 @@ const Play = () => {
   const [SettingsmodalIsOpen, setModalSettingIsOpen] = useState(false);
   const [PlaymodalIsOpen, setModalPlayIsOpen] = useState(false);
   const [InstuctionsIsOpen, setInstuctionsIsOpen] = useState(false);
+  const [ResultsIsOpen, setResultsIsOpen] = useState(false);
   const [difficulty, setDifficulty] = useState(null);
   const [isCalmMode, setIsCalmMode] = useState(false);
 
@@ -185,6 +187,17 @@ const Play = () => {
     setInstuctionsIsOpen(false);
   };
 
+  // Results Modal
+  const ResultsOpenModal = () => {
+    playClickSound();
+    setResultsIsOpen(true);
+  };
+
+  const ResultsCloseModal = () => {
+    playClickSound();
+    setResultsIsOpen(false);
+  };
+
   const handleDifficultySelect = (level) => {
     setDifficulty(level);
   };
@@ -244,6 +257,13 @@ const Play = () => {
           onMouseEnter={playHoverSound}
         >
           Instructions
+        </button>
+        <button
+          className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
+          onClick={ResultsOpenModal}
+          onMouseEnter={playHoverSound}
+        >
+          Results
         </button>
         <button
           className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
@@ -397,6 +417,7 @@ const Play = () => {
         InstuctionsIsOpen={InstuctionsIsOpen}
         InstructionsCloseModal={InstructionsCloseModal}
       />
+      <ResultsModal ResultsIsOpen={ResultsIsOpen} ResultsCloseModal={ResultsCloseModal} />
     </div>
   );
 };
