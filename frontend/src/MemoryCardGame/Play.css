@@ -15,7 +15,15 @@ body {
   color: #fff;
   transform: translate(-50%, -50%);
   max-width: 600px;
+  box-sizing: border-box;
   font: 16px/1.4 'Orbitron', sans-serif;
+}
+
+@media (max-width: 479px) {
+  .modal {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
 }
 
 .modal p {
@@ -92,7 +100,48 @@ body {
   color: #ffcc00; /* Default color for background music and sound effects */
   text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffaa00; /* Glowing effect */
   margin-bottom: 25px;
+  margin-top: 0;
   font-size: 24px;
+  text-align: center;
+}
+
+.modal-loading {
+  text-align: center;
+  font-size: 18px;
+}
+
+.scroll-table {
+  max-height: calc(90vh - 150px);
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.results-table th,
+.results-table td {
+  padding: 5px;
+  margin: 0;
+  border: none;
+  text-align: left;
+  font-weight: normal;
+}
+
+.results-table td {
+  border-top: 2px solid #fff;
+}
+
+.results-table tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.results-table .center {
   text-align: center;
 }
 
