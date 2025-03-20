@@ -6,7 +6,6 @@ const connectDB = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
 
-
 // Load environment variables
 dotenv.config({ path: './config/.env' });
 
@@ -27,7 +26,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 app.use('/api/users', userRoutes); // Ensure this line exists
 app.use('/api/memory', memoryRoutes);
-
 
 // Connect to MongoDB
 connectDB();
