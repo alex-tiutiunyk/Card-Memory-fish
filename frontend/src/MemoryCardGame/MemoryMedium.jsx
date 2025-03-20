@@ -1,35 +1,29 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Grid, Button, Modal, Typography } from "@mui/material";
-import { styled } from "@mui/system";
-import PropTypes from "prop-types";
-import { useSpring, animated } from "@react-spring/web";
-import background from "../assets/images/mode1.gif";
-import bgMusic from "../assets/audio/memory-bg.mp3";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Grid, Button, Modal, Typography } from '@mui/material';
+import { styled } from '@mui/system';
+import PropTypes from 'prop-types';
+import { useSpring, animated } from '@react-spring/web';
+import background from '../assets/images/mode1.gif';
+import bgMusic from '../assets/audio/memory-bg.mp3';
+import axios from 'axios';
 
-
-
-const defaultDifficulty = "Normal";
+const defaultDifficulty = 'Normal';
 
 // Card Images
 const cardImages = [
-    { id: 1, image: "/images/meteor.png" },
-    { id: 2, image: "/images/meteor.png" },
-    { id: 3, image: "/images/moon.png" },
-    { id: 4, image: "/images/moon.png" },
-    { id: 5, image: "/images/comet.png" },
-    { id: 6, image: "/images/comet.png" },
-  ];
-
-// Audio files for matching and final congratulation
-const matchAudioFiles = [
-  "/audio/wonderful.mp3",
-  "/audio/NiceJob.mp3",
-
+  { id: 1, image: '/images/meteor.png' },
+  { id: 2, image: '/images/meteor.png' },
+  { id: 3, image: '/images/moon.png' },
+  { id: 4, image: '/images/moon.png' },
+  { id: 5, image: '/images/comet.png' },
+  { id: 6, image: '/images/comet.png' },
 ];
 
-const congratsAudio = "/audio/congrats.mp3"; // Final congratulations audio
+// Audio files for matching and final congratulation
+const matchAudioFiles = ['/audio/wonderful.mp3', '/audio/NiceJob.mp3'];
+
+const congratsAudio = '/audio/congrats.mp3'; // Final congratulations audio
 
 // Shuffle Logic
 const shuffleArray = (array) => {
@@ -40,148 +34,135 @@ const shuffleArray = (array) => {
   }
   return shuffledArray;
 };
-const saveGameData = async (gameData) => {
-  try {
-    const response = await axios.post("http://localhost:5000/api/memory/save", gameData, {
-      headers: { "Content-Type": "application/json" },
-    });
-
-    console.log("Game data saved successfully", response.data);
-  } catch (error) {
-    console.error("Error saving game data:", error.response ? error.response.data : error.message);
-  }
-};
 
 // Styled Components
 const StyledGameContainer = styled(Box)(({ theme, mouseDisabled }) => ({
-  minHeight: "100vh",
-  width: "100vw",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
+  minHeight: '100vh',
+  width: '100vw',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   backgroundImage: `url(${background})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  position: "relative",
-  pointerEvents: mouseDisabled ? "none" : "auto", 
-
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  position: 'relative',
+  pointerEvents: mouseDisabled ? 'none' : 'auto',
 }));
 
 const PixelButton = styled(Box)(({ theme }) => ({
-  display: "inline-block",
-  backgroundColor: "#2c2c54",
-  color: "#fff",
+  display: 'inline-block',
+  backgroundColor: '#2c2c54',
+  color: '#fff',
   fontFamily: '"Press Start 2P", cursive',
-  fontSize: "14px",
-  padding: "15px 30px",
-  border: "2px solid #00d9ff",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-  cursor: "pointer",
-  textAlign: "center",
-  transition: "transform 0.2s, background-color 0.2s, box-shadow 0.2s",
-  "&:hover": {
-    backgroundColor: "#40407a",
-    borderColor: "#00aaff",
-    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.4)",
+  fontSize: '14px',
+  padding: '15px 30px',
+  border: '2px solid #00d9ff',
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+  cursor: 'pointer',
+  textAlign: 'center',
+  transition: 'transform 0.2s, background-color 0.2s, box-shadow 0.2s',
+  '&:hover': {
+    backgroundColor: '#40407a',
+    borderColor: '#00aaff',
+    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.4)',
   },
-  "&:active": {
-    transform: "scale(0.95)",
+  '&:active': {
+    transform: 'scale(0.95)',
   },
 }));
 
 const PixelBox = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  bottom: "10%",
-  left: "1%",
-  backgroundColor: "#ff4d4f",
-  color: "#fff",
-  padding: "10px 20px",
-  border: "2px solid #00d9ff",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  position: 'absolute',
+  bottom: '10%',
+  left: '1%',
+  backgroundColor: '#ff4d4f',
+  color: '#fff',
+  padding: '10px 20px',
+  border: '2px solid #00d9ff',
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
   fontFamily: '"Press Start 2P", cursive',
-  fontSize: "12px",
-  textAlign: "center",
-  marginBottom: "10px",
+  fontSize: '12px',
+  textAlign: 'center',
+  marginBottom: '10px',
 }));
 
 const PixelTimerBox = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  bottom: "5%",
-  left: "1%",
-  backgroundColor: "#2c2c54",
-  color: "#fff",
-  padding: "10px 20px",
-  border: "2px solid #00d9ff",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  position: 'absolute',
+  bottom: '5%',
+  left: '1%',
+  backgroundColor: '#2c2c54',
+  color: '#fff',
+  padding: '10px 20px',
+  border: '2px solid #00d9ff',
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
   fontFamily: '"Press Start 2P", cursive',
-  fontSize: "12px",
-  textAlign: "center",
+  fontSize: '12px',
+  textAlign: 'center',
 }));
 
 const CardContainer = styled(Box)({
-  perspective: "1000px",
-  cursor: "pointer",
-  width: "190px",
-  height: "190px",
-  padding: "10px",
+  perspective: '1000px',
+  cursor: 'pointer',
+  width: '190px',
+  height: '190px',
+  padding: '10px',
 });
 
 const CardInner = styled(animated.div)({
-  position: "relative",
-  width: "100%",
-  height: "100%",
-  transformStyle: "preserve-3d",
-  transition: "transform 0.6s",
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  transformStyle: 'preserve-3d',
+  transition: 'transform 0.6s',
 });
 
 const CardFront = styled(Box)({
-  position: "absolute",
+  position: 'absolute',
   top: 0,
   left: 0,
-  width: "100%",
-  height: "100%",
-  backfaceVisibility: "hidden",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  width: '100%',
+  height: '100%',
+  backfaceVisibility: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   // backgroundColor: "#1b1f34",
   // border: "2px solid #4c5c77",
-  borderRadius: "8px",
-  transform: "rotateY(180deg)",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+  borderRadius: '8px',
+  transform: 'rotateY(180deg)',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
 });
 
 const CardBack = styled(Box)({
-  position: "absolute",
+  position: 'absolute',
   top: 0,
   left: 0,
-  width: "100%",
-  height: "100%",
-  backfaceVisibility: "hidden",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: "#2c2c54",
-  border: "2px solid #00aaff",
-  borderRadius: "8px",
-  transform: "rotateY(0deg)",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+  width: '100%',
+  height: '100%',
+  backfaceVisibility: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#2c2c54',
+  border: '2px solid #00aaff',
+  borderRadius: '8px',
+  transform: 'rotateY(0deg)',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
 });
-
 
 const modalStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  backgroundColor: '#2c2c54',  // Matching the game's background color
+  backgroundColor: '#2c2c54', // Matching the game's background color
   border: '2px solid #00d9ff', // Matching the pixel border
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)", // Subtle shadow for pixel look
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', // Subtle shadow for pixel look
   padding: '20px',
   textAlign: 'center',
   borderRadius: '10px', // Pixel rounded corners
@@ -190,41 +171,41 @@ const modalStyle = {
 const PixelTypography = styled(Typography)(({ theme }) => ({
   fontFamily: '"Press Start 2P", cursive', // Pixelated font style
   fontSize: '24px',
-  color: '#fff',  // White text to stand out on the background
+  color: '#fff', // White text to stand out on the background
   letterSpacing: '1px',
   textShadow: `
     -1px -1px 0 #ff0000,  
     1px -1px 0 #ff7f00, 
     1px 1px 0 #ffd700, 
-    -1px 1px 0 #ff4500`,  // Pixelated text shadow
+    -1px 1px 0 #ff4500`, // Pixelated text shadow
 }));
 
 const PixelButtonModal = styled(Button)(({ theme }) => ({
-  backgroundColor: "#2c2c54",
-  color: "#fff",
+  backgroundColor: '#2c2c54',
+  color: '#fff',
   fontFamily: '"Press Start 2P", cursive', // Pixelated font style
-  fontSize: "14px",
-  padding: "15px 30px",
-  border: "2px solid #00d9ff",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-  cursor: "pointer",
-  textAlign: "center",
-  transition: "transform 0.2s, background-color 0.2s, box-shadow 0.2s",
-  "&:hover": {
-    backgroundColor: "#40407a",
-    borderColor: "#00aaff",
-    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.4)",
+  fontSize: '14px',
+  padding: '15px 30px',
+  border: '2px solid #00d9ff',
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+  cursor: 'pointer',
+  textAlign: 'center',
+  transition: 'transform 0.2s, background-color 0.2s, box-shadow 0.2s',
+  '&:hover': {
+    backgroundColor: '#40407a',
+    borderColor: '#00aaff',
+    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.4)',
   },
-  "&:active": {
-    transform: "scale(0.95)",
+  '&:active': {
+    transform: 'scale(0.95)',
   },
 }));
 
 // Card Component
 const Card = ({ card, handleClick, flipped, matched }) => {
   const { transform } = useSpring({
-    transform: flipped || matched ? "rotateY(180deg)" : "rotateY(0deg)",
+    transform: flipped || matched ? 'rotateY(180deg)' : 'rotateY(0deg)',
     config: { tension: 500, friction: 30 },
   });
 
@@ -232,10 +213,10 @@ const Card = ({ card, handleClick, flipped, matched }) => {
     <CardContainer onClick={handleClick}>
       <CardInner style={{ transform }}>
         <CardFront>
-          <img src={card.image} alt="Card front" style={{ width: "140%", height: "140%" }} />
+          <img src={card.image} alt='Card front' style={{ width: '140%', height: '140%' }} />
         </CardFront>
         <CardBack>
-          <img src="/images/Back2.png" alt="Card back" style={{ width: "140%", height: "140%" }} />
+          <img src='/images/Back2.png' alt='Card back' style={{ width: '140%', height: '140%' }} />
         </CardBack>
       </CardInner>
     </CardContainer>
@@ -263,28 +244,42 @@ const MemoryMedium = () => {
   const [initialReveal, setInitialReveal] = useState(true);
   const [musicStarted, setMusicStarted] = useState(false);
   const [mouseDisabled, setMouseDisabled] = useState(false);
-  const [bgVolume] = useState(parseInt(localStorage.getItem("bgVolume"), 10) || 0);
-  const [sfxVolume] = useState(parseInt(localStorage.getItem("sfxVolume"), 10) || 0);
+  const [bgVolume] = useState(parseInt(localStorage.getItem('bgVolume'), 10) || 0);
+  const [sfxVolume] = useState(parseInt(localStorage.getItem('sfxVolume'), 10) || 0);
   const audioRef = useRef(null);
   const [audioIndex, setAudioIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
 
+  const saveGameData = async (gameData) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/memory/save/${userID}`,
+        gameData,
+        {
+          headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        },
+      );
 
+      console.log('Game data saved successfully', response.data);
+    } catch (error) {
+      console.error(
+        'Error saving game data:',
+        error.response ? error.response.data : error.message,
+      );
+    }
+  };
 
   const handleSaveNewGame = () => {
     saveGameData({
-        userID,
-        gameDate: new Date(),
-        failed: failedAttempts,
-        difficulty: defaultDifficulty,
-        completed: 0,
-        timeTaken: timer,
+      gameDate: new Date(),
+      failed: failedAttempts,
+      difficulty: defaultDifficulty,
+      completed: 0,
+      timeTaken: timer,
     });
-};
-  
+  };
+
   const handleNewGame = () => {
-   
-    
     setCards(shuffleArray(cardImages));
     setMatchedCards([]);
     setFlippedCards([]);
@@ -294,18 +289,15 @@ const MemoryMedium = () => {
     setInitialReveal(true);
     setAudioIndex(0); // Reset audio index
 
-    
     const mouseDisableDuration = 2000;
     setMouseDisabled(true);
     setTimeout(() => {
-      setMouseDisabled(false);  // Re-enable mouse events after mouseDisableDuration
+      setMouseDisabled(false); // Re-enable mouse events after mouseDisableDuration
     }, mouseDisableDuration);
 
-  
     setTimeout(() => {
       setInitialReveal(false);
       setTimerActive(true);
-   
     }, 1500);
   };
   const handleBackButton = () => {
@@ -314,27 +306,26 @@ const MemoryMedium = () => {
 
   const handleModalYes = () => {
     setOpenModal(false);
-    localStorage.removeItem("gameCompleted"); // Remove game completion flag
-    navigate("/play"); // Navigate to play
+    localStorage.removeItem('gameCompleted'); // Remove game completion flag
+    navigate('/play'); // Navigate to play
   };
 
   const handleModalNo = () => {
     setOpenModal(false); // Close the modal and resume game
   };
-  
- 
+
   useEffect(() => {
     handleNewGame();
     const handleFirstClick = () => {
       if (!musicStarted && audioRef.current) {
         audioRef.current.volume = bgVolume / 100;
-        audioRef.current.play().catch((error) => console.error("Audio play error:", error));
+        audioRef.current.play().catch((error) => console.error('Audio play error:', error));
         setMusicStarted(true);
       }
     };
-    document.addEventListener("click", handleFirstClick);
+    document.addEventListener('click', handleFirstClick);
 
-    return () => document.removeEventListener("click", handleFirstClick);
+    return () => document.removeEventListener('click', handleFirstClick);
   }, []);
 
   useEffect(() => {
@@ -366,48 +357,49 @@ const MemoryMedium = () => {
     }
   }, [flippedCards, audioIndex, sfxVolume]);
 
-  
   useEffect(() => {
     if (matchedCards.length === cards.length && cards.length > 0) {
-        // Play the congratulations audio
-        const congrats = new Audio(congratsAudio);
-        congrats.volume = sfxVolume / 100;
-        congrats.play();
+      // Play the congratulations audio
+      const congrats = new Audio(congratsAudio);
+      congrats.volume = sfxVolume / 100;
+      congrats.play();
 
-        // Stop the timer before saving the game data
-        setTimerActive(false);
+      // Stop the timer before saving the game data
+      setTimerActive(false);
 
-        // Ensure the game data is saved only once
-        const saveData = async () => {
-            try {
-                await saveGameData({
-                    userID,
-                    gameDate: new Date(),
-                    failed: failedAttempts,
-                    difficulty: defaultDifficulty,
-                    completed: 1,  
-                    timeTaken: timer,
-                });
-                localStorage.setItem("gameCompleted", "true");
-                setTimeout(() => navigate("/congt-normal"), 1000);
-            } catch (error) {
-                console.error("Error saving game data:", error);
-            }
-        };
+      // Ensure the game data is saved only once
+      const saveData = async () => {
+        try {
+          await saveGameData({
+            gameDate: new Date(),
+            failed: failedAttempts,
+            difficulty: defaultDifficulty,
+            completed: 1,
+            timeTaken: timer,
+          });
+          localStorage.setItem('gameCompleted', 'true');
+          setTimeout(() => navigate('/congt-normal'), 1000);
+        } catch (error) {
+          console.error('Error saving game data:', error);
+        }
+      };
 
-        saveData();
+      saveData();
     }
-}, [matchedCards, cards.length, navigate, sfxVolume, failedAttempts, timer]);
+  }, [matchedCards, cards.length, navigate, sfxVolume, failedAttempts, timer]);
 
-
-  const userID = localStorage.getItem("userID"); // ✅ Fetch from local storage or auth context
+  const userID = localStorage.getItem('userID'); // ✅ Fetch from local storage or auth context
   if (!userID) {
-    console.error("Error: userID is missing.");
+    console.error('Error: userID is missing.');
     return;
   }
 
   const handleCardClick = (card) => {
-    if (!matchedCards.includes(card.id) && flippedCards.length < 2 && !flippedCards.some((c) => c.id === card.id)) {
+    if (
+      !matchedCards.includes(card.id) &&
+      flippedCards.length < 2 &&
+      !flippedCards.some((c) => c.id === card.id)
+    ) {
       setFlippedCards((prev) => [...prev, card]);
     }
   };
@@ -415,54 +407,79 @@ const MemoryMedium = () => {
   return (
     <StyledGameContainer mouseDisabled={mouseDisabled}>
       <audio ref={audioRef} src={bgMusic} loop />
-      <PixelButton onClick={handleBackButton} sx={{ position: "absolute",   // Absolute positioning
-    top: "20px",            // Adjust the distance from the top
-    left: "20px",           // Adjust the distance from the left
-    padding: "15px 30px",   // Ensure button size is consistent
-    fontSize: "14px",   }}>
+      <PixelButton
+        onClick={handleBackButton}
+        sx={{
+          position: 'absolute', // Absolute positioning
+          top: '20px', // Adjust the distance from the top
+          left: '20px', // Adjust the distance from the left
+          padding: '15px 30px', // Ensure button size is consistent
+          fontSize: '14px',
+        }}
+      >
         Back
       </PixelButton>
       <PixelTimerBox>Timer: {timer}s</PixelTimerBox>
       <PixelBox>Learning Moments: {failedAttempts}</PixelBox>
-      <Grid container spacing={10} justifyContent="center" sx={{ maxWidth: 700, marginTop: "-50px" }}>
-  {cards.map((card) => (
-    <Grid item xs={4} key={card.id} > {/* Changed from xs={3} to xs={4} */}
-      <Card
-        card={card}
-        handleClick={() => handleCardClick(card)}
-        flipped={initialReveal || flippedCards.some((c) => c.id === card.id) || matchedCards.includes(card.id)}
-        matched={matchedCards.includes(card.id)}
-      />
-    </Grid>
-  ))}
-</Grid>
-      <Box sx={{ mt: 2, textAlign: "center" }}>
-     
-<PixelButton onClick={() => { handleSaveNewGame(); handleNewGame(); }} sx={{ mt: 2 }}>
+      <Grid
+        container
+        spacing={10}
+        justifyContent='center'
+        sx={{ maxWidth: 700, marginTop: '-50px' }}
+      >
+        {cards.map((card) => (
+          <Grid item xs={4} key={card.id}>
+            {' '}
+            {/* Changed from xs={3} to xs={4} */}
+            <Card
+              card={card}
+              handleClick={() => handleCardClick(card)}
+              flipped={
+                initialReveal ||
+                flippedCards.some((c) => c.id === card.id) ||
+                matchedCards.includes(card.id)
+              }
+              matched={matchedCards.includes(card.id)}
+            />
+          </Grid>
+        ))}
+      </Grid>
+      <Box sx={{ mt: 2, textAlign: 'center' }}>
+        <PixelButton
+          onClick={() => {
+            handleSaveNewGame();
+            handleNewGame();
+          }}
+          sx={{ mt: 2 }}
+        >
           New Game
         </PixelButton>
       </Box>
 
-
       <Modal open={openModal} onClose={handleModalNo}>
-  <Box sx={modalStyle}>
-    <PixelTypography variant="h6">
-      Are you sure you want to go back to the play page?
-    </PixelTypography>
-    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginTop: 2 }}>
-      <PixelButtonModal onClick={() => { handleSaveNewGame(); handleModalYes(); }} variant="contained" color="primary">
-        Yes
-      </PixelButtonModal>
-      <PixelButtonModal onClick={handleModalNo} variant="contained" color="secondary">
-        No
-      </PixelButtonModal>
-    </Box>
-  </Box>
-</Modal>
+        <Box sx={modalStyle}>
+          <PixelTypography variant='h6'>
+            Are you sure you want to go back to the play page?
+          </PixelTypography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginTop: 2 }}>
+            <PixelButtonModal
+              onClick={() => {
+                handleSaveNewGame();
+                handleModalYes();
+              }}
+              variant='contained'
+              color='primary'
+            >
+              Yes
+            </PixelButtonModal>
+            <PixelButtonModal onClick={handleModalNo} variant='contained' color='secondary'>
+              No
+            </PixelButtonModal>
+          </Box>
+        </Box>
+      </Modal>
     </StyledGameContainer>
   );
 };
-
-
 
 export default MemoryMedium;

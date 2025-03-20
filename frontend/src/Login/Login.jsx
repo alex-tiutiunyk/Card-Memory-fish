@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import Aquarium from '../components/Aquarium/Aquarium';
 
 const Login = ({ onLogin }) => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate(); // For navigation
 
@@ -40,7 +40,7 @@ const Login = ({ onLogin }) => {
           type='text'
           placeholder='Username'
           value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         />
         <input
           className={styles.input}
