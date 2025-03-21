@@ -5,13 +5,12 @@ import styles from './Aquarium.module.css';
 
 export default function Aquarium() {
   useEffect(() => {
-    const interval = setInterval(generateBubbles, 500);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(generateFish, 1500);
-    return () => clearInterval(interval);
+    const intervalBubbles = setInterval(generateBubbles, 500);
+    const intervalFishes = setInterval(generateFish, 1500);
+    return () => {
+      clearInterval(intervalBubbles);
+      clearInterval(intervalFishes);
+    };
   }, []);
 
   useEffect(() => {

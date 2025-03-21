@@ -46,7 +46,7 @@ const InstructionsModal = ({ InstuctionsIsOpen, InstructionsCloseModal }) => {
       >
         <X size={24} />
       </button>
-      <h1 className='modal-h2'>Tile</h1>
+      <h1 className='modal-h2'>Instructions</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptas ratione excepturi
         quidem fugiat corporis fugit? Asperiores, suscipit nostrum. Unde.

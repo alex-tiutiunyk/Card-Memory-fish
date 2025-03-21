@@ -48,7 +48,6 @@ const ResultsModal = ({ ResultsIsOpen, ResultsCloseModal }) => {
       getLoading(true);
       axios.get(`http://localhost:5000/api/memory/results/${userID}`).then((res) => {
         setResults(res.data.results);
-        console.log('res ---->', res);
         getLoading(false);
       });
     } catch (error) {
@@ -89,13 +88,13 @@ const ResultsModal = ({ ResultsIsOpen, ResultsCloseModal }) => {
                 <th>date</th>
                 <th>level</th>
                 <th className='center'>errors</th>
-                <th className='center'>time</th>
+                <th className='center'>time, s</th>
               </tr>
             </thead>
             <tbody>
               {results.map((item, i) => (
                 <tr key={item._id}>
-                  <td className='center'>{i}</td>
+                  <td className='center'>{i + 1}</td>
                   <td>{convertDate(item.gameDate)}</td>
                   <td>{item.difficulty}</td>
                   <td className='center'>{item.failed}</td>
