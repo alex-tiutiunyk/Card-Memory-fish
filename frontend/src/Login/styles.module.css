@@ -47,6 +47,10 @@
   box-shadow: 0 0 15px var(--blue-dark);
 }
 
+.input::placeholder {
+  color: #fff;
+}
+
 .footer {
   display: flex;
   gap: 15px;
