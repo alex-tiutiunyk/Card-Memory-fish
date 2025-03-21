@@ -1,5 +1,6 @@
 :root {
   --index: calc(1vw + 1vh);
+  --blue-light: #5dbaed;
   --blue: #077888;
   --blue-dark: #035763;
   --orange: #e27e0d;
@@ -46,6 +47,22 @@
 
 body {
   margin: 0;
+}
+
+.wave-text span {
+  display: inline-block;
+  vertical-align: bottom;
+  animation: wave 1.5s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 .bubble {

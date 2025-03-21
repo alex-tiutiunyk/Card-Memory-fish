@@ -3,6 +3,7 @@
   overflow: hidden;
   perspective: 1000px;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--blue-light);
 }
 
 .form {

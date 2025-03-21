@@ -7,9 +7,12 @@ import backgroundMusic from '../assets/audio/background-music.mp3';
 import buttonHoverSound from '../assets/audio/button-hover.mp3';
 import buttonClickSound from '../assets/audio/button-click.mp3';
 import { X } from 'lucide-react';
+import { generateBubbles } from '../utils/bubbleGenerator';
+import { generateFish } from '../utils/fishGenerator';
 import './Play.css';
 import InstructionsModal from '../components/Modals/InstructionsModal';
 import ResultsModal from '../components/Modals/ResultsModal';
+import { waveTextAnimation } from '../utils/waveTextAnimation';
 
 const modalStyles = {
   overlay: {
@@ -25,14 +28,18 @@ const modalStyles = {
     border: '2px solid #4a4e69',
     borderRadius: '20px',
     padding: '40px',
-    maxWidth: '600px',
-    height: '300px',
+    maxWidth: '710px',
+    height: 'auto',
+    maxHeight: 'calc(90vh - 150px)',
     width: '90%',
+    boxSizing: 'border-box',
     color: '#fff',
     textAlign: 'center',
     position: 'absolute',
     top: '50%',
     left: '50%',
+    bottom: 'auto',
+    right: 'auto',
     transform: 'translate(-50%, -50%)',
     overflow: 'hidden',
   },
@@ -52,14 +59,18 @@ const modalPlayStyles = {
     border: '2px solid #4a4e69',
     borderRadius: '20px',
     padding: '40px',
-    maxWidth: '600px',
-    height: '200px',
+    maxWidth: '710px',
+    height: 'auto',
+    maxHeight: 'calc(90vh - 150px)',
     width: '90%',
+    boxSizing: 'border-box',
     color: '#fff',
     textAlign: 'center',
     position: 'absolute',
     top: '50%',
     left: '50%',
+    bottom: 'auto',
+    right: 'auto',
     transform: 'translate(-50%, -50%)',
     overflow: 'hidden',
   },
@@ -202,6 +213,16 @@ const Play = () => {
     setDifficulty(level);
   };
 
+  useEffect(() => {
+    waveTextAnimation();
+    const intervalBubbles = setInterval(generateBubbles, 500);
+    const intervalFishes = setInterval(generateFish, 1500);
+    return () => {
+      clearInterval(intervalBubbles);
+      clearInterval(intervalFishes);
+    };
+  }, []);
+
   const handlePlay = () => {
     playClickSound();
     const userID = localStorage.getItem('userID');
@@ -236,42 +257,46 @@ const Play = () => {
 
   return (
     <div
-      className='background-container'
+      className='background-container aquarium'
       style={{
         backgroundImage: `url(${isCalmMode ? calmBackground : backgroundGif})`,
       }}
     >
       <div className='bathyscaphe'></div>
-      <h1 className={`game-title ${isCalmMode ? 'calm-title' : ''}`}>WonderCards</h1>
+      <h1 className={`wave-text game-title ${isCalmMode ? 'calm-title' : ''}`}>WonderCards</h1>
       <div className='button-container'>
-        <button
-          className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
-          onClick={PlayopenModal}
-          onMouseEnter={playHoverSound}
-        >
-          Play
-        </button>
-        <button
-          className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
-          onClick={InstructionsOpenModal}
-          onMouseEnter={playHoverSound}
-        >
-          Instructions
-        </button>
-        <button
-          className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
-          onClick={ResultsOpenModal}
-          onMouseEnter={playHoverSound}
-        >
-          Results
-        </button>
-        <button
-          className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
-          onClick={SettingopenModal}
-          onMouseEnter={playHoverSound}
-        >
-          Settings
-        </button>
+        <div className='col'>
+          <button
+            className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
+            onClick={PlayopenModal}
+            onMouseEnter={playHoverSound}
+          >
+            Play
+          </button>
+          <button
+            className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
+            onClick={InstructionsOpenModal}
+            onMouseEnter={playHoverSound}
+          >
+            Instructions
+          </button>
+        </div>
+        <div className='col'>
+          <button
+            className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
+            onClick={SettingopenModal}
+            onMouseEnter={playHoverSound}
+          >
+            Settings
+          </button>
+          <button
+            className={`game-button ${isCalmMode ? 'calm-button' : ''}`}
+            onClick={ResultsOpenModal}
+            onMouseEnter={playHoverSound}
+          >
+            Results
+          </button>
+        </div>
       </div>
       <Modal
         isOpen={SettingsmodalIsOpen}

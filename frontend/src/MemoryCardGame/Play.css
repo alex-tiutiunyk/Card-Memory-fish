@@ -97,8 +97,8 @@ body {
 /* Volume label styling */
 .modal-h2 {
   font-family: 'Orbitron', sans-serif;
-  color: #ffcc00; /* Default color for background music and sound effects */
-  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffaa00; /* Glowing effect */
+  color: #fff; /* Default color for background music and sound effects */
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff; /* Glowing effect */
   margin-bottom: 25px;
   margin-top: 0;
   font-size: 24px;
@@ -170,58 +170,64 @@ body {
 
 /* Game title styling */
 .game-title {
-  font-family: 'Orbitron', sans-serif; /* Futuristic font for space theme */
-  font-size: 100px; /* Large size */
-  color: var(--orange); /* Yellow, matching stars */
-  text-shadow: 0 0 10px #ffcc00, /* Outer glow */ 0 0 20px #ffaa00,
-    /* Brighter inner glow */ 0 0 30px rgba(255, 255, 255, 0.6); /* Subtle white glow */
-  margin-top: 70px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2.125rem, 9.167vw - 0.625rem, 6.25rem);
+  color: var(--blue);
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+  margin-top: clamp(3.75rem, -5.556vw + 5.417rem, 1.25rem);
   z-index: 10;
-  animation: pulseTitle 3s infinite; /* Add glowing pulse animation */
-}
-
-/* Title pulse animation */
-@keyframes pulseTitle {
-  0%,
-  100% {
-    text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffaa00, 0 0 30px rgba(255, 255, 255, 0.6);
-    transform: scale(1);
-  }
-  50% {
-    text-shadow: 0 0 20px #ffaa00, 0 0 40px #ffcc00, 0 0 60px rgba(255, 255, 255, 0.9);
-    transform: scale(1.05); /* Slight size increase for pulse effect */
-  }
 }
 
 /* Button container */
 .button-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
   z-index: 10;
 }
 
+@media (max-width: 767px) {
+  .button-container {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 1399px) {
+  .button-container .col {
+    max-width: 400px;
+    text-align: center;
+  }
+}
+
 /* Game button styling */
 .game-button {
-  width: 300px; /* Button size */
+  width: 300px;
   height: 70px;
   margin: 15px;
-  font-family: 'Press Start 2P', sans-serif; /* Retro font */
-  font-size: 16px; /* Font size */
-  color: #ffffff; /* White text */
-  background: linear-gradient(90deg, var(--orange), #22223b); /* Cosmic gradient */
-  border: 2px solid #9a8c98; /* Metallic border */
-  border-radius: 10px; /* Smooth edges */
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), /* Outer glow */ 0 6px 12px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  background-image: linear-gradient(0deg, var(--blue) 0%, var(--blue-dark) 100%);
+  border: 5px solid #fff;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 6px 12px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s linear;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+}
+
+@media (max-width: 767px) {
+  .game-button {
+    height: 50px;
+    margin: 8px;
+    font-size: 14px;
+  }
 }
 
 .game-button:hover {
-  background: linear-gradient(90deg, #22223b, var(--orange)); /* Hover gradient */
-  box-shadow: 0 0 20px #ffffff, /* Brighter glow */ 0 8px 16px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
-  transform: scale(1.1);
+  background: linear-gradient(0deg, var(--blue-dark) 0%, var(--blue) 100%);
+  box-shadow: 0 0 20px #fff, 0 8px 16px rgba(0, 0, 0, 0.6);
+  transform: scale(1.05);
 }
 
 /* Calm Mode toggle styling */
@@ -311,14 +317,19 @@ input:checked + .slider:before {
   gap: 20px;
   margin-top: 20px;
 }
+@media (max-width: 767px) {
+  .difficulty-selection {
+    flex-direction: column;
+  }
+}
 .difficulty-button {
   padding: 10px 20px;
   font-family: 'Press Start 2P', sans-serif;
   font-size: 30px;
   color: #fff;
   background: linear-gradient(90deg, #22223b, #4a4e69);
-  border: 2px solid #9a8c98;
-  border-radius: 10px;
+  border: 5px solid #fff;
+  border-radius: 30px;
   cursor: pointer;
   transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
 }
