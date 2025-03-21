@@ -49,12 +49,6 @@ body {
   margin: 0;
 }
 
-.wave-text span {
-  display: inline-block;
-  vertical-align: bottom;
-  animation: wave 1.5s ease-in-out infinite;
-}
-
 @keyframes wave {
   0%,
   100% {
